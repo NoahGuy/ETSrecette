@@ -41,7 +41,7 @@ nav {
     color: lightgrey;
     padding: 1rem; /* espace alentours */
     justify-content: left;  /* items justifiés à gauche */
-    gap: 5rem; /* espace entre les items */
+    gap: 2rem; /* espace entre les items */
     align-items: center; /* centrer verticalement */
 }
 
@@ -154,4 +154,8 @@ h2 {
 
 header h2 {
     color: white;
+}
+
+.search {
+    margin-left: auto;
 }
