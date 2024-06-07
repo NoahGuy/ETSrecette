@@ -4,45 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>recette</title>
+    <link rel="stylesheet" href="./normalize.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./data.js"></script>
+    <script src="./script.js"></script>
 </head>
 <body>
-    <header>
-        <h2>L'ÉTS a du goût</h2>
-    </header>
-    <h1>Poutine</h1>
-    <img src="../images/poutine.jpg">
-    <table>
-        <tr> 
-            <th>ingrédients</th>
-            <th>quantité en tasse/cuillère</th>
-            <th>quantité en grammes</th>
-        </tr> 
-        <tr>
-            <td>patates</td>
-            <td>---</td>
-            <td>500</td>
-        </tr>
-        <tr>
-            <td>sauce poutine</td>
-            <td>3/4 de tasse</td>
-            <td>175</td>
-        </tr>
-        <tr>
-            <td>fromage en grains</td>
-            <td>1/2 tasse</td>
-            <td>75</td>
-        </tr>
-    </table>
-    <h2>Étapes de préparation de la recette</h2>
-    <ol>
-        <li>Trancher patates en prismes à base carrée</li>
-        <li>Frire patates dans huile à 180 celcius jusqu'à qu'à qu'elles soient dorées</li>
-        <li>Chauffer sauce poutine jusqu'à ébullition</li>
-        <li>Disposer des fromages en grain de manière équitable sur votre bol de frites</li>
-        <li>Recouvrir le mélange de sauce poutine</li>
-    </ol>
-    <footer>
-        <p>© 2024 Recettes de Cuisine. Tous droits réservés.</p>
-    </footer>
+    <div class="grid_recette">
+        <header>
+            <h2>CUISINIÉTUDIANT</h2>
+        </header>
+
+        <nav>
+            <div>
+            <p class="filtres">Filtres</p>
+            </div>
+
+            <div>
+
+            <label for="type_plats">Type de plats:</label>
+            <select name="type_plats" id="type_plats">
+
+                <option value="1">Tous</option>
+                <option value="2">Végétarien</option>
+                <option value="3">Végane</option>
+                <option value="4">Épicé</option>
+                <option value="5">Pas épicé</option>
+
+            </select>
+
+            </div>
+
+            <div>
+
+            <label for="type_cuisine">Type de cuisine:</label>
+            <select name="type_cuisine" id="type_cuisine">
+
+                <option value="1">Tous</option>
+                <option value="2">Chinois</option>
+                <option value="3">Italien</option>
+                <option value="4">Arabe</option>
+                <option value="5">Québécois</option>
+
+            </select>
+
+            </div>
+
+            <div class="search">
+                <form action="/search" method="GET">
+                  <input type="search" id="search" name="search" placeholder="Rechercher...">
+                  <button type="submit">Rechercher</button>
+              </div>
+        </nav>
+        <div class="grid">
+            <main>
+                <div class="photo_desc">
+                        <!-- photo et description de la recette -->
+                </div>
+                <div class="table">
+                    <table>
+                        <thead>
+                            <tr> 
+                                <th>ingrédients</th>
+                                <th>quantité</th>
+                                <th>quantité équivalente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- les ingredients -->
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h2>Étapes de préparation de la recette</h2>
+                    <ol>
+                        <!-- les etapes  -->
+                    </ol>
+                </div>
+            </main>
+        </div>
+        <footer>
+            <p>© 2024 Recettes de Cuisine. Tous droits réservés.</p>
+        </footer>
+    </div>
 </body>
 </html>
