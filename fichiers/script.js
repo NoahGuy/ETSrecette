@@ -1,22 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
-    //verifie si la page actuelle est la page d'accueil
-    if (window.location.pathname.includes('pagePrincipale.html')) {
-        //affiche toutes les recettes sur la page d'accueil
-        afficher_toutes_recettes(recettes);
-    } 
-    //verifie si la page actuelle est la page de recette
-    else if (window.location.pathname.includes('recette.html')) {
-        //trouve l'id a partir du url
-        const urlParams = new URLSearchParams(window.location.search);
-        const recetteId = parseInt(urlParams.get('id'));
-        //trouve la recette dans le tableau par son id
-        const recette = recettes.find(r => r.id === recetteId);
-        if (recette) {
-            //affiche la recette
-            afficher_recette(recette);
-        }
-    }
-});
+// document.addEventListener("DOMContentLoaded", function() {
+//     //verifie si la page actuelle est la page d'accueil
+//     if (window.location.pathname.includes('http://localhost:8000/')) {
+//         //affiche toutes les recettes sur la page d'accueil
+//         afficher_toutes_recettes(recettes);
+//     } 
+//     //verifie si la page actuelle est la page de recette
+//     else if (window.location.pathname.includes('recette.php')) {
+//         //trouve l'id a partir du url
+//         const urlParams = new URLSearchParams(window.location.search);
+//         const recetteId = parseInt(urlParams.get('id'));
+//         //trouve la recette dans le tableau par son id
+//         const recette = recettes.find(r => r.id === recetteId);
+//         if (recette) {
+//             //affiche la recette
+//             afficher_recette(recette);
+//         }
+//     }
+// });
 
 
 function afficher_resume_recette(recette) {
@@ -38,7 +38,7 @@ function afficher_resume_recette(recette) {
 
     //ajoute eventListener pour rediriger vers la recette quand on clique
     recetteElement.addEventListener('click', () => {
-        window.location.href = `./recette.html?id=${recette.id}`;
+        window.location.href = `./recette.php?id=${recette.id}`;
     });
 
     //ajoute les elements a l'article
@@ -79,11 +79,20 @@ function afficher_recette(recette) {
 
     //cree paragraphe pour le type de plat
     const platP = document.createElement('p');
-    platP.textContent = `Type de plat : ${types_plats[recette.type_de_plat-1].nom}`;
+    platP.textContent = `Type de plat : ${types_plats.find(type=>{
+        return type.id == recette.type_de_plat;
+    }).nom}`;
 
     //cree paragraphe pour le type de cuisine
     const cuisineP = document.createElement('p');
-    cuisineP.textContent = `Type de cuisine : ${types_cuisines[recette.type_de_cuisine-1].nom}`;
+    cuisineP.textContent = `Type de cuisine : ${types_cuisines.find(type=>{
+        return type.id == recette.type_de_cuisine;
+    }).nom}`;
+
+
+     types_cuisines.find(type=>{
+         return type.id == recette.type_de_cuisine;
+     }).nom;
     
     //ajoute les elements au div infoDiv
     infoDiv.append(titre, tempsP, platP, cuisineP);
