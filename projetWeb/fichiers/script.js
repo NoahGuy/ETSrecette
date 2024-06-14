@@ -1,22 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
-    //verifie si la page actuelle est la page d'accueil
-    if (window.location.pathname.includes('pagePrincipale.html')) {
-        //affiche toutes les recettes sur la page d'accueil
-        afficher_toutes_recettes(recettes);
-    } 
-    //verifie si la page actuelle est la page de recette
-    else if (window.location.pathname.includes('recette.html')) {
-        //trouve l'id a partir du url
-        const urlParams = new URLSearchParams(window.location.search);
-        const recetteId = parseInt(urlParams.get('id'));
-        //trouve la recette dans le tableau par son id
-        const recette = recettes.find(r => r.id === recetteId);
-        if (recette) {
-            //affiche la recette
-            afficher_recette(recette);
-        }
-    }
-});
+// document.addEventListener("DOMContentLoaded", function() {
+//     //verifie si la page actuelle est la page d'accueil
+//     if (window.location.pathname.includes('http://localhost:8000/')) {
+//         //affiche toutes les recettes sur la page d'accueil
+//         afficher_toutes_recettes(recettes);
+//     } 
+//     //verifie si la page actuelle est la page de recette
+//     else if (window.location.pathname.includes('recette.php')) {
+//         //trouve l'id a partir du url
+//         const urlParams = new URLSearchParams(window.location.search);
+//         const recetteId = parseInt(urlParams.get('id'));
+//         //trouve la recette dans le tableau par son id
+//         const recette = recettes.find(r => r.id === recetteId);
+//         if (recette) {
+//             //affiche la recette
+//             afficher_recette(recette);
+//         }
+//     }
+// });
 
 
 function afficher_resume_recette(recette) {
@@ -24,87 +24,119 @@ function afficher_resume_recette(recette) {
     const recetteElement = document.createElement('article');
     recetteElement.classList.add('fiche_recette');
 
-    //cree et ajoute l'image de la recette
+    //cree l'image de la recette
     const img = document.createElement('img');
     img.src = recette.image_url;
-    recetteElement.appendChild(img);
 
-    //cree et ajoute le titre de la recette
+    //cree le titre de la recette
     const titre = document.createElement('h2');
     titre.textContent = recette.titre;
-    recetteElement.appendChild(titre);
 
-    //cree et ajoute la description courte de la recette
+    //cree la description courte de la recette
     const description = document.createElement('p');
     description.textContent = recette.desc_courte;
-    recetteElement.appendChild(description);
 
     //ajoute eventListener pour rediriger vers la recette quand on clique
     recetteElement.addEventListener('click', () => {
-        window.location.href = `./recette.html?id=${recette.id}`;
+        window.location.href = `./recette.php?id=${recette.id}`;
     });
 
-    //ajoute la recette au main
-    document.querySelector('main').appendChild(recetteElement);
+    //ajoute les elements a l'article
+    recetteElement.append(img, titre, description);
+
+    //retourne l'article
+    return recetteElement;
 }
 
 
 function afficher_toutes_recettes(recettes) {
     //itere a travers les recettes et affiche leur fiche resume
-    recettes.forEach(recette => afficher_resume_recette(recette));
+    const conteneur = document.querySelector("main");
+    recettes.forEach(recette => conteneur.append(afficher_resume_recette(recette)));
 }
 
 
 function afficher_recette(recette) {
-    //met l'image de la recette
+    
+    //selectionne l'emplacement du div photoDesc (div incluant photo et infos de la recette)
     const photoDesc = document.querySelector('.photo_desc');
+
+    //cree l'image et lui donne la bonne url
     const image = document.createElement('img');
     image.classList.add("recipe-image");
     image.src =  recette.image_url;
-    photoDesc.appendChild(image);
 
-    //ajoute les informations de la recette (titre, temps de preparation, type de plat, type de cuisine)
+    //cree infoDiv (div englobant titre, temps de preparation, type de plat, type de cuisine)
     const infoDiv = document.createElement('div');
 
+    //cree titre
     const titre = document.createElement('h1');
     titre.textContent = recette.titre;
-    infoDiv.appendChild(titre);
 
+    //cree paragraphe pour le temps de prep
     const tempsP = document.createElement('p');
     tempsP.textContent = `Temps de préparation : ${recette.temps_de_preparation}`;
-    infoDiv.appendChild(tempsP);
 
+    //cree paragraphe pour le type de plat
     const platP = document.createElement('p');
-    platP.textContent = `Type de plat : ${types_plats[recette.type_de_plat-1].nom}`;
-    infoDiv.appendChild(platP);
+    platP.textContent = `Type de plat : ${types_plats.find(type=>{
+        return type.id == recette.type_de_plat;
+    }).nom}`;
 
+    //cree paragraphe pour le type de cuisine
     const cuisineP = document.createElement('p');
-    cuisineP.textContent = `Type de cuisine : ${types_cuisines[recette.type_de_cuisine-1].nom}`;
-    infoDiv.appendChild(cuisineP);
+    cuisineP.textContent = `Type de cuisine : ${types_cuisines.find(type=>{
+        return type.id == recette.type_de_cuisine;
+    }).nom}`;
+
+
+     types_cuisines.find(type=>{
+         return type.id == recette.type_de_cuisine;
+     }).nom;
     
-    photoDesc.appendChild(infoDiv);
+    //ajoute les elements au div infoDiv
+    infoDiv.append(titre, tempsP, platP, cuisineP);
+    
+    //ajoute l'image et l'infoDiv au div photoDesc
+    photoDesc.append(image, infoDiv);
 
     //remplit le tableau des ingredients
     const tableBody = document.querySelector('table tbody');
     recette.ingredients.forEach(ingredient => {
+
+        //cree une ligne
         const row = document.createElement('tr');
+
+        //cree une cellule pour le nom de l'ingredient
         const nomTd = document.createElement('td');
         nomTd.textContent = ingredient.nom;
-        row.appendChild(nomTd);
+
+        //cree une cellule pour la quantite de l'ingredient
         const quantiteTd = document.createElement('td');
         quantiteTd.textContent = ingredient.quantite;
-        row.appendChild(quantiteTd);
+
+        //cree une cellule pour la quantite equivalente de l'ingredient
         const quantiteEquivalenteTd = document.createElement('td');
         quantiteEquivalenteTd.textContent = ingredient.quantite_equivalente;
-        row.appendChild(quantiteEquivalenteTd);
+
+        //ajoute les cellules a la rangee
+        row.append(nomTd, quantiteTd, quantiteEquivalenteTd);
+
+        //ajoute la rangee a la table
         tableBody.appendChild(row);
     });
 
-    //remplis liste etapes
+    //selectionne la liste ordonnee
     const etapesList = document.querySelector('ol');
+
+    //pour chaque etape
     recette.etapes_de_preparation.forEach(etape => {
+
+        //cree un item de liste et ajoute le texte de l'etape courante
         const li = document.createElement('li');
         li.textContent = etape;
+
+        //ajoute l'item de liste a la liste
         etapesList.appendChild(li);
     });
 }
