@@ -1,3 +1,11 @@
+<?php
+require_once("./config.php");
+if( !  isset($_SESSION["user_loggedin"]) ){
+  header("Location: login.php");
+  exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -25,12 +33,14 @@
           <label for="type_plats">Type de plats:</label>
           <select name="type_plats" id="type_plats">
 
-            <option value="1">Tous</option>
-            <option value="2">Végétarien</option>
-            <option value="3">Végane</option>
-            <option value="4">Épicé</option>
-            <option value="5">Pas épicé</option>
+            <option value=0>Tous</option>
+            <?php 
 
+              $tab = liste_types_plats($conn);
+              for ($i = 0; $i < count($tab); $i++) {
+                  echo "<option value={$tab[$i]["id"]}>{$tab[$i]["nom"]}</option>";
+              }
+            ?>
           </select>
 
         </div>
@@ -40,11 +50,14 @@
           <label for="type_cuisine">Type de cuisine:</label>
           <select name="type_cuisine" id="type_cuisine">
 
-            <option value="1">Tous</option>
-            <option value="2">Chinois</option>
-            <option value="3">Italien</option>
-            <option value="4">Arabe</option>
-            <option value="5">Québécois</option>
+          <option value=0>Tous</option>
+          <?php 
+
+            $tab = liste_types_cuisines($conn);
+            for ($i = 0; $i < count($tab); $i++) {
+                echo "<option value={$tab[$i]["id"]}>{$tab[$i]["nom"]}</option>";
+            }
+          ?>
 
           </select>
 
