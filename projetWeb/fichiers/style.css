@@ -1,10 +1,10 @@
-
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 .grid_principale {
@@ -50,7 +50,7 @@ nav {
     font-weight: bold;
 }
 
-.grid_principale > main {
+.grid > main {
     grid-area: main;
     display: flex;
     flex-direction: row; 
@@ -61,19 +61,10 @@ nav {
     margin-bottom: 2rem;
 }
 
-.grid_recette > main {
-    grid-area: main;
-    display: flex;
-    flex-direction: column; 
-    align-items: center; /* centrer items horizontalement */
-    gap: 8rem; 
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
 .photo_desc {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 10rem;
 }
 
@@ -133,7 +124,7 @@ table {
     border-collapse: collapse;
     margin-left: auto; /* centrer la table dans le div */
     margin-right: auto; /* centrer la table dans le div */
-    width: 60%;
+    width: 50%;
 }
 
 th {
@@ -159,4 +150,41 @@ header h2 {
 
 .search {
     margin-left: auto;
+}
+
+.recipe-image {
+    width: 100%;
+    max-width: 400px; /* maximum width */
+    height: auto; /* maintain aspect ratio */
+    display: block;
+    margin: 0 auto; /* center the image */
+}
+
+.login-item {
+
+    display: block;
+    padding: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 22rem;
+}
+
+.mb-4 h2 {
+    text-align: center;
+    font-size: 3rem;
+}
+
+button {
+    background-color: #7e5733;
+    color: white;
+}
+
+.alert {
+    color: red;
+    text-align: center;
 }
